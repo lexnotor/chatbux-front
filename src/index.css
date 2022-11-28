@@ -1,0 +1,15 @@
+:root {
+    --primary-color: #DED8F2;
+    --light-primary-color: #B8AAE2;
+    --divider-color: rgb(167, 167, 167);
+    --primary-text-color: #202020;
+    --secondary-text-color: #373737;
+    --online-green-color: #70E841;
+}
+
+body,
+#root,
+html {
+    margin: 0px;
+    padding: 0px;
+}

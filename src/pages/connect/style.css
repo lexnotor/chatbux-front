@@ -1,0 +1,75 @@
+.connect-page {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary-text-color);
+}
+
+.connect-page>section {
+    box-shadow: 0 0 3px var(--divider-color);
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.connect-page>section nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.connect-page nav a {
+    padding: 0.7rem 3rem;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 1px 4px var(--divider-color);
+}
+
+.connect-page nav a.active {
+    color: white;
+    background-color: var(--light-primary-color);
+}
+
+.connect-page form {
+    width: 80vw;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+
+.connect-page form .input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.connect-page form input[type='text'],
+.connect-page form input[type='email'],
+.connect-page form input[type='password'] {
+    padding: 0.6rem 1rem;
+    border: .5px solid var(--divider-color);
+    border-radius: 5px;
+    outline: none;
+}
+
+.connect-page .submit-group {
+    text-align: center;
+}
+
+.connect-page form input[type='submit'] {
+    padding: 0.7rem 3rem;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 1px 4px var(--divider-color);
+    color: white;
+    background-color: var(--light-primary-color);
+    border: 0;
+    cursor: pointer;
+}
