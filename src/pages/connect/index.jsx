@@ -1,10 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Navigate, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import './style.css';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ConnectPage = () => {
+
     return (
         <div className='connect-page'>
             <section>
@@ -13,7 +16,12 @@ const ConnectPage = () => {
                     <NavLink to={"login"} >Se connecter</NavLink>
                 </nav>
                 <Routes>
-                    <Route path='login' element={<LoginForm navigate={useNavigate()} />} />
+                    <Route path='login' element={
+                        <LoginForm
+                            navigate={useNavigate()}
+                            dispatch={useDispatch()}
+                        />
+                    } />
                     <Route path='signup' element={<SignupForm navigate={useNavigate()} />} />
                     <Route path='*' element={<Navigate to={'login'} />} />
                 </Routes>
@@ -78,8 +86,9 @@ class LoginForm extends React.PureComponent {
                 })
                 .then(data => {
                     if (data) {
-                        localStorage.setItem('token', data.token);
-                        this.navigate('/user');
+                        console.log(data.token + '');
+                        localStorage.setItem('token', data.token + '');
+                        this.navigate('/chats');
                     }
                 })
                 .catch(err => {

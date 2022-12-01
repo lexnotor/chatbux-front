@@ -1,0 +1,6 @@
+.wrapper-app header {
+    background-color: var(--light-primary-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}

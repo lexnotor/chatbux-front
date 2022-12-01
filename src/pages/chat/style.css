@@ -1,0 +1,23 @@
+.chat-page {
+    display: grid;
+    grid-template-columns: 300px auto;
+}
+
+.contact-item {
+    display: grid;
+    grid-template-columns: 3rem auto .5rem;
+    padding: .6rem 1rem;
+    margin: 1rem 0rem;
+    align-items: center;
+}
+
+.contact-identity {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.contact-identity>:last-child {
+    font-size: .9rem;
+    color: rgb(50, 50, 50);
+}
