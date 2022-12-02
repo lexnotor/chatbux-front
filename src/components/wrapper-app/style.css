@@ -1,6 +1,20 @@
+.wrapper-app {
+    display: grid;
+    grid-template-rows: 50px calc(100vh - 50px);
+    background-image: url('../../assets/heart1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
 .wrapper-app header {
-    background-color: var(--light-primary-color);
-    padding: 1rem;
+    background-color: rgba(243, 231, 246, 0.387);
+    padding: .5rem;
     display: flex;
     justify-content: space-between;
+    box-shadow: 0 0 5px rgb(66, 64, 64);
+}
+
+.wrapper-app>:last-child {
+    height: calc(100vh - 50px);
+    overflow-x: hidden;
 }

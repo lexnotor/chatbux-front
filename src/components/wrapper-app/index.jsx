@@ -1,9 +1,24 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import './style.css'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { Outlet, useNavigate } from 'react-router-dom'
 import logo from '../../assets/react.svg'
+import { getAllChat, getMyInfo, getUsers, setToken } from '../../redux'
+import './style.css'
 
 const WrapperApp = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            dispatch(setToken(token));
+            dispatch(getUsers(token));
+            dispatch(getMyInfo(token));
+            dispatch(getAllChat(token));
+
+        } else navigate('/connect')
+    }, [])
     return (
         <div className='wrapper-app'>
             <header>

@@ -86,7 +86,6 @@ class LoginForm extends React.PureComponent {
                 })
                 .then(data => {
                     if (data) {
-                        console.log(data.token + '');
                         localStorage.setItem('token', data.token + '');
                         this.navigate('/chats');
                     }

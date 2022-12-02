@@ -3,12 +3,40 @@
     grid-template-columns: 300px auto;
 }
 
+.chat-page> :nth-child(1) {
+    /* background-color: rgba(231, 231, 246, 0.461); */
+    backdrop-filter: blur(.4rem);
+    overflow-x: scroll;
+    color: aliceblue;
+}
+
+.chat-page> :nth-child(2) {
+    color: black;
+    padding: 0 1rem;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-rows: 50px calc(100% - 50px - 50px) 50px;
+    backdrop-filter: blur(.4rem);
+    margin: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgb(66, 64, 64);
+    /* background-color: rgba(243, 231, 246, 0.62); */
+    /* background-image: linear-gradient(to bottom, rgba(144, 172, 199, 0.498), rgba(58, 65, 72, 0.76)); */
+}
+
 .contact-item {
     display: grid;
     grid-template-columns: 3rem auto .5rem;
     padding: .6rem 1rem;
-    margin: 1rem 0rem;
+    margin: 0rem 0rem;
     align-items: center;
+    box-shadow: 0 1px 1px beige;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.contact-item:hover {
+    background-color: rgba(43, 147, 226, 0.549);
 }
 
 .contact-identity {
@@ -19,5 +47,60 @@
 
 .contact-identity>:last-child {
     font-size: .9rem;
-    color: rgb(50, 50, 50);
+    color: rgb(207, 207, 207);
+}
+
+.chat-area> :nth-child(2) {
+    overflow-x: scroll;
+}
+
+.chatter-profile {
+    padding: .5rem;
+    border-bottom: 1px solid white;
+}
+
+.input-zone {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-zone .send-group {
+    border-radius: .4rem;
+    border: 1px solid rgba(74, 89, 206, 0.62);
+    min-width: 330px;
+    width: 90%;
+    height: 40px;
+    background-color: rgb(68, 68, 68);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.input-zone input {
+    border: 0;
+    padding: 5px;
+    width: 90%;
+    background-color: rgba(25, 25, 24, 0);
+    outline: none;
+    color: rgb(219, 216, 216);
+}
+
+.input-zone button {
+    background-color: rgba(0, 255, 255, 0);
+    border: 0;
+}
+
+.input-zone .send-group img {
+    width: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.input-zone>button img {
+    width: 30px;
+    vertical-align: middle;
+    cursor: pointer;
 }

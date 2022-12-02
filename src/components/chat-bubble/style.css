@@ -1,0 +1,69 @@
+.chat-bubble {
+    width: fit-content;
+    max-width: 50%;
+    position: relative;
+    display: grid;
+    margin: 1em 0;
+}
+
+.chat-bubble .dialogue {
+    padding: 10px;
+}
+
+.chat-bubble .dialogue-queue {
+    width: 0;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    border-bottom: 0 solid transparent;
+    border-top: .7em solid transparent;
+}
+
+.chat-bubble img {
+    max-width: 100%;
+}
+
+/* left bubble */
+.chat-bubble.left {
+    grid-template-columns: .7em calc(100% - .7em);
+    color: white;
+}
+
+.chat-bubble.left .dialogue {
+    background-color: rgba(84, 98, 110, 0.549);
+    grid-column: 2;
+    border-radius: 4px 4px 4px 0;
+}
+
+.chat-bubble.left .dialogue.trans {
+    background-color: transparent;
+}
+
+.chat-bubble.left .dialogue-queue {
+    border-right: .7em solid rgba(84, 98, 110, 0.549);
+    border-left: 0 solid transparent;
+    grid-column: 1;
+}
+
+/* right bubble */
+.chat-bubble.right {
+    grid-template-columns: calc(100% - .7em) .7em;
+    color: rgb(255, 255, 255);
+    margin-left: auto;
+}
+
+.chat-bubble.right .dialogue {
+    background-color: rgba(43, 147, 226, 0.549);
+    grid-column: 1;
+    border-radius: 4px 4px 0px 4px;
+}
+
+.chat-bubble.right .dialogue.trans {
+    background-color: transparent;
+}
+
+.chat-bubble.right .dialogue-queue {
+    border-left: .7em solid rgba(43, 147, 226, 0.549);
+    border-right: 0 solid transparent;
+    grid-column: 2;
+}
