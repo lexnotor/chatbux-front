@@ -57,7 +57,7 @@ const ChatArea = ({ toDisplay }) => {
         const formData = new FormData();
         if (0 in files) {
             formData.append('myfile', files[0]);
-            formData.append('to', toDisplay.contact)
+            formData.append('to', toDisplay);
             dispatch(sendMessageImage(account.token, formData))
         }
     }
@@ -78,7 +78,7 @@ const ChatArea = ({ toDisplay }) => {
                     currentChat ?
                         currentChat.messages.map(elm => (
                             <ChatBubble genre='text' right={elm.sender == account.id} key={elm.id}>
-                                {elm.type == 'image' ?
+                                {elm.genre == 'image' ?
                                     <img src={elm.content} alt='Image' /> :
                                     elm.content
                                 }
@@ -96,11 +96,14 @@ const ChatArea = ({ toDisplay }) => {
                         onChange={inputTextHandle}
                     />
                     <button>
-                        <img
-                            src={picture}
-                            alt=""
-                            onChange={e => sendImageHandle(e)}
-                        />
+                        <input type="file" id="sendpic" hidden onChange={e => sendImageHandle(e)} />
+                        <label htmlFor="sendpic">
+                            <img
+                                src={picture}
+                                alt=""
+                            />
+                        </label>
+
                     </button>
                 </div>
                 <button>
