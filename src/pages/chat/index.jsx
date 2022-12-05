@@ -5,14 +5,17 @@ import send from '../../assets/send_icon.png'
 import detective from '../../assets/detective.svg'
 import ChatBubble from '../../components/chat-bubble'
 import { sendMessageImage, sendMessageText } from '../../redux'
+import { BsChevronLeft } from 'react-icons/bs'
 import './style.css'
+import { Link } from 'react-router-dom'
 
-const ContactItem = ({ nom = '', prenom = '', username = '', image, uuid = '', setToDisplay }) => {
+const ContactItem = ({ nom = '', prenom = '', username = '', image, uuid = '', setToDisplay, setDisplayContacts }) => {
     /**
      * @param {React.MouseEvent<HTMLDivElement>} e 
      */
     const clickHandle = e => {
-        setToDisplay(uuid)
+        setToDisplay(uuid);
+        setDisplayContacts(false)
     }
     return (
         <div className='contact-item' onClick={clickHandle}>
@@ -34,7 +37,7 @@ const ContactItem = ({ nom = '', prenom = '', username = '', image, uuid = '', s
     )
 }
 
-const ChatArea = ({ toDisplay }) => {
+const ChatArea = ({ toDisplay, setDisplayContacts }) => {
     const [chats, account, contacts] = useSelector(state => [state.chats, state.account, state.contacts])
     const currentChat = chats.find(elm => elm.chatter.indexOf(toDisplay) != -1);
     const receiver = contacts.find(elm => elm.id == toDisplay);
@@ -70,6 +73,7 @@ const ChatArea = ({ toDisplay }) => {
     return (
         <>
             <div className='chatter-profile'>
+                <div onClick={() => setDisplayContacts(true)}><BsChevronLeft /></div>
                 <img src={receiver.image == '' ? receiver.username : receiver.image} alt="" />
                 <span>{receiver.username}</span>
             </div>
@@ -116,10 +120,11 @@ const ChatArea = ({ toDisplay }) => {
 
 const ChatPage = () => {
     const [contacts, account] = useSelector(state => [state.contacts, state.account]);
-    const [toDisplay, setToDisplay] = useState(null)
+    const [toDisplay, setToDisplay] = useState(null);
+    const [displayContacts, setDisplayContacts] = useState(true);
     return (
-        <div className='chat-page'>
-            <div>
+        <div className={'chat-page' + (displayContacts ? ' showcontact' : ' showchat')}>
+            <div className='contacts-list'>
                 {
                     contacts.map((person, i) => {
                         if (person.id == account.id) return (<></>)
@@ -131,6 +136,7 @@ const ChatPage = () => {
                             uuid={person.id}
                             key={i}
                             setToDisplay={setToDisplay}
+                            setDisplayContacts={setDisplayContacts}
                         />
                     })
                 }
@@ -138,7 +144,10 @@ const ChatPage = () => {
             {
                 toDisplay ?
                     <div className='chat-area'>
-                        <ChatArea toDisplay={toDisplay} />
+                        <ChatArea
+                            toDisplay={toDisplay}
+                            setDisplayContacts={setDisplayContacts}
+                        />
                     </div> :
                     <div className='chat-waiting'>
                         <img src={detective} alt="" />

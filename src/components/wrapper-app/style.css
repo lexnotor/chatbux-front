@@ -5,7 +5,7 @@
 }
 
 .app-title-logo {
-    max-width: 300px;
+    max-width: 150px;
 }
 
 .app-title-logo img {
@@ -49,4 +49,12 @@
     object-fit: fill;
     object-position: center;
     border-radius: 50%;
+}
+
+@media screen and (max-width: 500px) {
+
+    .menu>span,
+    .menu>:last-child {
+        display: none;
+    }
 }

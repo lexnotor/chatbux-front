@@ -3,8 +3,9 @@ import './style.css'
 import profil from '../../assets/logo.png'
 import edit from '../../assets/edit.svg'
 import { useSelector } from 'react-redux'
-import { sendProfileImage } from '../../redux'
+import { deconnect, sendProfileImage } from '../../redux'
 import { useDispatch } from 'react-redux'
+import logout from '../../assets/logout.png'
 
 const AccountPage = () => {
     const account = useSelector(state => state.account);
@@ -52,6 +53,13 @@ const AccountPage = () => {
                     </tr>
                 </tbody>
             </table>
+            <div className='account-deconnect'>
+                <img
+                    src={logout}
+                    alt=""
+                    onClick={() => deconnect(account.token)}
+                />
+            </div>
         </div >
     )
 }
