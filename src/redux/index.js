@@ -173,8 +173,10 @@ export const sendProfileImage = (token, formData) => {
                 return null
             })
             .then(data => {
-                if (data) {
+                if (data && data.data) {
                     dispatch(updateAccount(data.data))
+                } else {
+                    window.location.reload()
                 }
             })
             .catch(err => {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import picture from '../../assets/picture.png'
-import logo from '../../assets/react.svg'
 import send from '../../assets/send_icon.png'
 import detective from '../../assets/detective.svg'
 import ChatBubble from '../../components/chat-bubble'
@@ -36,8 +35,9 @@ const ContactItem = ({ nom = '', prenom = '', username = '', image, uuid = '', s
 }
 
 const ChatArea = ({ toDisplay }) => {
-    const [chats, account] = useSelector(state => [state.chats, state.account])
+    const [chats, account, contacts] = useSelector(state => [state.chats, state.account, state.contacts])
     const currentChat = chats.find(elm => elm.chatter.indexOf(toDisplay) != -1);
+    const receiver = contacts.find(elm => elm.id == toDisplay);
     const [inputText, setInputText] = useState('')
     const dispatch = useDispatch();
     /**
@@ -45,7 +45,8 @@ const ChatArea = ({ toDisplay }) => {
      */
     const sendHandle = e => {
         if (!toDisplay || !account.token) return;
-        dispatch(sendMessageText(account.token, { to: toDisplay, content: inputText }));
+        if (!inputText.trim().length) return;
+        dispatch(sendMessageText(account.token, { to: toDisplay, content: (inputText.trim()) }));
     }
     /**
      * @param {React.ChangeEvent<HTMLInputElement>} e 
@@ -69,7 +70,8 @@ const ChatArea = ({ toDisplay }) => {
     return (
         <>
             <div className='chatter-profile'>
-                <img src={logo} alt="" />
+                <img src={receiver.image == '' ? receiver.username : receiver.image} alt="" />
+                <span>{receiver.username}</span>
             </div>
             <div className=''>
                 {

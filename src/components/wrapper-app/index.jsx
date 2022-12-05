@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate, Link } from 'react-router-dom'
-import chaticon from '../../assets/chat.svg'
+import chaticon from '../../assets/chat.png'
 import logout from '../../assets/logout.png'
-import logo from '../../assets/react.svg'
+import logo from '../../assets/chatbux.png'
 import user from '../../assets/logo.png'
 import { deconnect, getAllChat, getMyInfo, getUsers, setToken } from '../../redux'
 import './style.css'
@@ -34,6 +34,7 @@ const WrapperApp = () => {
                     <Link to={'/chat'}><img src={chaticon} alt="" /></Link>
                 </nav>
                 <div className='menu'>
+                    <span>{`${account.prenom}`}</span>
                     <Link to={'/account'}>
                         <img
                             src={account.image == '' ? user : account.image}

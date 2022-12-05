@@ -1,13 +1,19 @@
 .wrapper-app {
     display: grid;
     grid-template-rows: 50px calc(100vh - 50px);
-    background-image: url('../../assets/heart.png');
-    background-size: cover;
-    background-position: center;
+    background-color: #7383BF;
+}
+
+.app-title-logo {
+    max-width: 300px;
+}
+
+.app-title-logo img {
+    height: 100%;
 }
 
 .wrapper-app header {
-    background-color: rgba(29, 147, 108, 0.904);
+    background-color: rgba(42, 47, 59, 0.904);
     padding: .5rem;
     display: flex;
     justify-content: space-between;
@@ -24,6 +30,12 @@
     overflow-x: hidden;
 }
 
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+}
 
 .menu img {
     width: 40px;
