@@ -53,7 +53,7 @@
 }
 
 .chat-bubble.right .dialogue {
-    background-color: rgba(43, 147, 226, 0.549);
+    background-color: rgba(226, 43, 43, 0.549);
     grid-column: 1;
     border-radius: 4px 4px 0px 4px;
 }
@@ -63,7 +63,7 @@
 }
 
 .chat-bubble.right .dialogue-queue {
-    border-left: .7em solid rgba(43, 147, 226, 0.549);
+    border-left: .7em solid rgba(226, 43, 43, 0.549);
     border-right: 0 solid transparent;
     grid-column: 2;
 }

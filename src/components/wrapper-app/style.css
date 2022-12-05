@@ -1,20 +1,32 @@
 .wrapper-app {
     display: grid;
     grid-template-rows: 50px calc(100vh - 50px);
-    background-image: url('../../assets/heart1.jpg');
+    background-image: url('../../assets/heart.png');
     background-size: cover;
     background-position: center;
 }
 
 .wrapper-app header {
-    background-color: rgba(243, 231, 246, 0.387);
+    background-color: rgba(29, 147, 108, 0.904);
     padding: .5rem;
     display: flex;
     justify-content: space-between;
     box-shadow: 0 0 5px rgb(66, 64, 64);
 }
 
+.nav img {
+    width: 40px;
+    cursor: pointer;
+}
+
 .wrapper-app>:last-child {
     height: calc(100vh - 50px);
     overflow-x: hidden;
+}
+
+
+.menu img {
+    width: 40px;
+    cursor: pointer;
+    margin: 0 8px;
 }

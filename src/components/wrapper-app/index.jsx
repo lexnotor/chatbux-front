@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Outlet, useNavigate, Link } from 'react-router-dom'
+import chaticon from '../../assets/chat.svg'
+import logout from '../../assets/logout.png'
 import logo from '../../assets/react.svg'
-import { getAllChat, getMyInfo, getUsers, setToken } from '../../redux'
+import user from '../../assets/user.png'
+import { deconnect, getAllChat, getMyInfo, getUsers, setToken } from '../../redux'
 import './style.css'
 
 const WrapperApp = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
+    const account = useSelector(state => state.account)
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -19,6 +23,7 @@ const WrapperApp = () => {
 
         } else navigate('/connect')
     }, [])
+
     return (
         <div className='wrapper-app'>
             <header>
@@ -26,10 +31,21 @@ const WrapperApp = () => {
                     <img src={logo} alt="" />
                 </div>
                 <nav className='nav'>
-                    <img src={logo} alt="" />
+                    <Link to={'/chat'}><img src={chaticon} alt="" /></Link>
                 </nav>
                 <div className='menu'>
-                    <img src={logo} alt="" />
+                    <Link to={'/account'}>
+                        <img
+                            src={user}
+                            alt=""
+                        />
+                    </Link>
+
+                    <img
+                        src={logout}
+                        alt=""
+                        onClick={() => deconnect(account.token)}
+                    />
                 </div>
             </header>
             <Outlet />

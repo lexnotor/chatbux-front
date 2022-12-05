@@ -1,5 +1,4 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import './style.css';
@@ -7,7 +6,10 @@ import './style.css';
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ConnectPage = () => {
-
+    const navigate = useNavigate();
+    useEffect(() => {
+        localStorage.getItem('token') && navigate('/chats');
+    }, [])
     return (
         <div className='connect-page'>
             <section>
@@ -37,7 +39,8 @@ class LoginForm extends React.PureComponent {
         this.state = {
             userid: '',
             psw: '',
-            persist: true
+            persist: true,
+            theError: ''
         };
         this.navigate = props.navigate
     }
@@ -50,7 +53,8 @@ class LoginForm extends React.PureComponent {
         if (!(key in this.state)) return;
         this.setState({
             ...this.state,
-            [key]: event.target.value
+            [key]: event.target.value,
+            theError: ''
         });
     }
     /**
@@ -62,12 +66,10 @@ class LoginForm extends React.PureComponent {
         /**
          * @type {HTMLFormElement}
          */
-        const form = event.target;
-        const errorDisplay = form.querySelector('.error-display');
         if (!this.state.userid.trim().length) {
-            errorDisplay.innerHTML = "Veuillez entrer un Email ou nom d'utilisateur"
+            this.setState({ ...this.state, theError: "Veuillez entrer un Email ou nom d'utilisateur" });
         } else if (!this.state.psw.trim().length) {
-            errorDisplay.innerHTML = "Veillez entrez un mot de passe"
+            this.setState({ ...this.state, theError: "Veillez entrez un mot de passe" });
         } else {
             this.setState({ ...this.state, isLoad: true });
             fetch(`${BACKEND_URL}/api/v1/connect/login`, {
@@ -89,17 +91,17 @@ class LoginForm extends React.PureComponent {
                         localStorage.setItem('token', data.token + '');
                         this.navigate('/chats');
                     }
+                    this.setState({ ...this.state, isLoad: false });
                 })
                 .catch(err => {
-
+                    this.setState({ ...this.state, isLoad: false, theError: "Connexion impossible" });
                 })
         }
-
     }
     render() {
         return (
             <form action="" onSubmit={e => this.submitHandle(e)}>
-                <div className='.error-display'></div>
+                {this.state.theError !== '' && <div className='error-display'>{this.state.theError}</div>}
                 <div className='input-group userid-group'>
                     <label htmlFor="userid">Nom d'utilisateur</label>
                     <input type="text" name="userid" id="userid" value={this.state.userid} onChange={e => this.inputHandle(e, 'userid')} autoComplete={'false'} />
@@ -136,7 +138,8 @@ class SignupForm extends React.PureComponent {
             username: '',
             psw: '',
             confirme: '',
-            isLoad: false
+            isLoad: false,
+            theError: ''
         }
     }
 
@@ -149,7 +152,8 @@ class SignupForm extends React.PureComponent {
         if (!(key in this.state)) return;
         this.setState({
             ...this.state,
-            [key]: event.target.value
+            [key]: event.target.value,
+            theError: ''
         });
     }
     /**
@@ -164,17 +168,17 @@ class SignupForm extends React.PureComponent {
         const form = event.target;
         const errorDisplay = form.querySelector('.error-display');
         if (!/^[0-ü][0-ü \-]{1,}[0-ü]$/.test(this.state.nom)) {
-            errorDisplay.innerHTML = 'Veuillez entrer un nom valide'
+            this.setState({ ...this.state, theError: 'Veuillez entrer un nom valide' })
         } else if (!/^[0-ü][0-ü \-]{1,}[0-ü]$/.test(this.state.prenom)) {
-            errorDisplay.innerHTML = 'Veuillez entrer un prenom valide'
+            this.setState({ ...this.state, theError: 'Veuillez entrer un prenom valide' })
         } else if (!/^[0-ü][0-ü \-]{1,}[0-ü]$/.test(this.state.username)) {
-            errorDisplay.innerHTML = "Le nom d'utilisateur n'est pas acceptable"
+            this.setState({ ...this.state, theError: "Le nom d'utilisateur n'est pas acceptable" })
         } else if (!/^[A-z][0-z._]{2,}@[0-z]{3,}\.[a-z]{2,}$/.test(this.state.email)) {
-            errorDisplay.innerHTML = "L'addresse email n'est pas valide"
+            this.setState({ ...this.state, theError: "L'addresse email n'est pas valide" })
         } else if (!/^\S[#-ü \-]{2,}\S$/.test(this.state.psw)) {
-            errorDisplay.innerHTML = "Le mot de passe n'est pas securisé"
+            this.setState({ ...this.state, theError: "Le mot de passe n'est pas securisé" })
         } else if (this.state.psw !== this.state.confirme) {
-            errorDisplay.innerHTML = "Les mots de passe ne correspondent pas"
+            this.setState({ ...this.state, theError: 'Les mots de passe ne correspondent pas' })
         } else {
             this.setState({ ...this.state, isLoad: true });
             fetch(`${BACKEND_URL}/api/v1/connect/signup`, {
@@ -200,7 +204,7 @@ class SignupForm extends React.PureComponent {
                 })
                 .then(data => {
                     if (data.type) {
-                        errorDisplay.innerHTML = data.msg;
+                        this.setState({ ...this.state, theError: data.msg })
                         return null
                     }
                     console.log(data)
@@ -215,9 +219,9 @@ class SignupForm extends React.PureComponent {
         return (
             <>
                 <form action="" onSubmit={e => this.submitHandle(e)}>
-                    <div className='error-display'>
-
-                    </div>
+                    {this.state.theError !== '' && <div className='error-display'>
+                        {this.state.theError}
+                    </div>}
                     <div className='input-group nom-group'>
                         <label htmlFor="nom">Nom</label>
                         <input type="text" name="nom" id="nom" value={this.state.nom} onChange={e => this.inputHandle(e, 'nom')} />

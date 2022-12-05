@@ -44,7 +44,7 @@ export const getUsers = (token) => {
                 dispatch(setUserList(data.data))
             })
             .catch(err => {
-                deconnect()
+                deconnect(token)
             });
     }
 }
@@ -87,7 +87,7 @@ export const getAllChat = (token) => {
                 return res.json();
             })
             .then(data => {
-                if (!data) return;
+                if (!data) return deconnect(token);
                 dispatch(setChatList(data.data))
             })
             .catch(err => {
@@ -103,6 +103,35 @@ export const sendMessageText = (token, data) => {
             mode: 'cors',
             method: 'post',
             body: new URLSearchParams({ to: data.to, content: data.content }),
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if (res.status == 200 || res.status == 201) return res.json()
+                if (res.status == 401) {
+                    deconnect(token)
+                }
+                return null
+            })
+            .then(data => {
+                if (data) {
+                    dispatch(addChat(data.data))
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const sendMessageImage = (token, formData) => {
+    if (!token) return;
+    return dispatch => {
+        fetch(`${BACKEND_URL}/api/v1/chat/sendimage`, {
+            mode: 'cors',
+            method: 'post',
+            body: formData,
             headers: {
                 authorization: `Bearer ${token}`
             }

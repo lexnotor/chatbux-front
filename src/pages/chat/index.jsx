@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import picture from '../../assets/picture.png'
 import logo from '../../assets/react.svg'
 import send from '../../assets/send_icon.png'
+import detective from '../../assets/detective.svg'
 import ChatBubble from '../../components/chat-bubble'
-import { sendMessageText } from '../../redux'
+import { sendMessageImage, sendMessageText } from '../../redux'
 import './style.css'
 
 const ContactItem = ({ nom = '', prenom = '', username = '', image, uuid = '', setToDisplay }) => {
@@ -49,6 +50,19 @@ const ChatArea = ({ toDisplay }) => {
     /**
      * @param {React.ChangeEvent<HTMLInputElement>} e 
      */
+    const sendImageHandle = e => {
+        if (!toDisplay || !account.token) return;
+        const files = e.target.files
+        const formData = new FormData();
+        if (0 in files) {
+            formData.append('myFile', files[0]);
+            formData.append('to', toDisplay.contact)
+            dispatch(sendMessageImage(account.token, formData))
+        }
+    }
+    /**
+     * @param {React.ChangeEvent<HTMLInputElement>} e 
+     */
     const inputTextHandle = e => {
         setInputText(e.target.value)
     }
@@ -80,7 +94,11 @@ const ChatArea = ({ toDisplay }) => {
                         onChange={inputTextHandle}
                     />
                     <button>
-                        <img src={picture} alt="" />
+                        <img
+                            src={picture}
+                            alt=""
+                            onChange={sendImageHandle}
+                        />
                     </button>
                 </div>
                 <button>
@@ -92,13 +110,14 @@ const ChatArea = ({ toDisplay }) => {
 }
 
 const ChatPage = () => {
-    const contacts = useSelector(state => state.contacts);
+    const [contacts, account] = useSelector(state => [state.contacts, state.account]);
     const [toDisplay, setToDisplay] = useState(null)
     return (
         <div className='chat-page'>
             <div>
                 {
                     contacts.map((person, i) => {
+                        if (person.id == account.id) return (<></>)
                         return <ContactItem
                             nom={person.nom}
                             prenom={person.prenom}
@@ -111,9 +130,15 @@ const ChatPage = () => {
                     })
                 }
             </div>
-            <div className='chat-area'>
-                <ChatArea toDisplay={toDisplay} />
-            </div>
+            {
+                toDisplay ?
+                    <div className='chat-area'>
+                        <ChatArea toDisplay={toDisplay} />
+                    </div> :
+                    <div className='chat-waiting'>
+                        <img src={detective} alt="" />
+                    </div>
+            }
         </div>
     )
 }

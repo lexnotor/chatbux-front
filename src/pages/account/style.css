@@ -1,0 +1,26 @@
+.account-page {
+    backdrop-filter: blur(0.3rem);
+    background-color: rgba(57, 187, 163, 0.481);
+    padding: 1rem;
+}
+
+.user-image {
+    text-align: center;
+}
+
+.account-page table {
+    min-width: 350px;
+    border-radius: 8px;
+    margin: auto;
+    font-size: 1.2rem;
+    background-color: rgb(169, 228, 193);
+}
+
+.account-page table td {
+    padding: 1rem;
+}
+
+.editprofile {
+    width: 30px;
+    cursor: pointer;
+}

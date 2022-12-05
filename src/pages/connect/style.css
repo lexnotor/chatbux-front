@@ -92,6 +92,14 @@
     }
 }
 
+.connect-page .error-display {
+    border: .5px solid rgb(204, 86, 86);
+    color: rgb(204, 86, 86);
+    text-align: center;
+    transition: 0.5s;
+    padding: .5rem;
+}
+
 #success_display {
     background-color: #261636a9;
     color: white;

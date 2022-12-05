@@ -7,21 +7,31 @@
     /* background-color: rgba(231, 231, 246, 0.461); */
     backdrop-filter: blur(.4rem);
     overflow-x: scroll;
-    color: aliceblue;
+    color: rgb(42, 38, 34);
 }
 
-.chat-page> :nth-child(2) {
+.chat-page>.chat-area {
     color: black;
     padding: 0 1rem;
     overflow-y: scroll;
     display: grid;
     grid-template-rows: 50px calc(100% - 50px - 50px) 50px;
-    backdrop-filter: blur(.4rem);
+    backdrop-filter: blur(.3rem);
     margin: 1rem;
     border-radius: 8px;
     box-shadow: 0 0 5px rgb(66, 64, 64);
     /* background-color: rgba(243, 231, 246, 0.62); */
     /* background-image: linear-gradient(to bottom, rgba(144, 172, 199, 0.498), rgba(58, 65, 72, 0.76)); */
+}
+
+.chat-page>.chat-waiting {
+    text-align: center;
+    background-color: rgba(240, 255, 255, 0.301);
+}
+
+.chat-page>.chat-waiting img {
+    width: 50%;
+    opacity: 0.5;
 }
 
 .contact-item {
@@ -36,7 +46,7 @@
 }
 
 .contact-item:hover {
-    background-color: rgba(43, 147, 226, 0.549);
+    background-color: rgba(226, 43, 43, 0.549);
 }
 
 .contact-identity {
@@ -47,7 +57,7 @@
 
 .contact-identity>:last-child {
     font-size: .9rem;
-    color: rgb(207, 207, 207);
+    color: rgb(35, 29, 29);
 }
 
 .chat-area> :nth-child(2) {
