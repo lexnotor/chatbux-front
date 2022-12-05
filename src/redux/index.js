@@ -154,6 +154,35 @@ export const sendMessageImage = (token, formData) => {
     }
 }
 
+export const sendProfileImage = (token, formData) => {
+    if (!token) return;
+    return dispatch => {
+        fetch(`${BACKEND_URL}/api/v1/user/upladphoto`, {
+            mode: 'cors',
+            method: 'post',
+            body: formData,
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if (res.status == 200) return res.json()
+                if (res.status == 401) {
+                    deconnect(token)
+                }
+                return null
+            })
+            .then(data => {
+                if (data) {
+                    dispatch(updateAccount(data.data))
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
 export const store = configureStore({
     reducer: {
         account: accountSlice.reducer,

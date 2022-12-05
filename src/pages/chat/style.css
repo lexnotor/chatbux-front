@@ -43,10 +43,24 @@
     box-shadow: 0 1px 1px beige;
     transition: .5s;
     cursor: pointer;
+    gap: 5px;
 }
 
 .contact-item:hover {
     background-color: rgba(226, 43, 43, 0.549);
+}
+
+.contact-item .contact-pic {
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.contact-item .contact-pic img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: fill;
+    object-position: center;
+    border-radius: 50%;
 }
 
 .contact-identity {

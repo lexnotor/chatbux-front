@@ -4,7 +4,7 @@ import { Outlet, useNavigate, Link } from 'react-router-dom'
 import chaticon from '../../assets/chat.svg'
 import logout from '../../assets/logout.png'
 import logo from '../../assets/react.svg'
-import user from '../../assets/user.png'
+import user from '../../assets/logo.png'
 import { deconnect, getAllChat, getMyInfo, getUsers, setToken } from '../../redux'
 import './style.css'
 
@@ -36,8 +36,9 @@ const WrapperApp = () => {
                 <div className='menu'>
                     <Link to={'/account'}>
                         <img
-                            src={user}
+                            src={account.image == '' ? user : account.image}
                             alt=""
+                            className='profile-image'
                         />
                     </Link>
 

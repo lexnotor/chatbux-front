@@ -30,3 +30,11 @@
     cursor: pointer;
     margin: 0 8px;
 }
+
+.menu .profile-image {
+    width: 40px;
+    height: 40px;
+    object-fit: fill;
+    object-position: center;
+    border-radius: 50%;
+}

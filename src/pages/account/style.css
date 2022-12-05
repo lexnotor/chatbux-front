@@ -8,6 +8,14 @@
     text-align: center;
 }
 
+.user-image>img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: right center;
+    border-radius: 50%;
+}
+
 .account-page table {
     min-width: 350px;
     border-radius: 8px;

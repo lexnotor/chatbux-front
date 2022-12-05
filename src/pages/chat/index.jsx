@@ -55,7 +55,7 @@ const ChatArea = ({ toDisplay }) => {
         const files = e.target.files
         const formData = new FormData();
         if (0 in files) {
-            formData.append('myFile', files[0]);
+            formData.append('myfile', files[0]);
             formData.append('to', toDisplay.contact)
             dispatch(sendMessageImage(account.token, formData))
         }
@@ -97,7 +97,7 @@ const ChatArea = ({ toDisplay }) => {
                         <img
                             src={picture}
                             alt=""
-                            onChange={sendImageHandle}
+                            onChange={e => sendImageHandle(e)}
                         />
                     </button>
                 </div>
