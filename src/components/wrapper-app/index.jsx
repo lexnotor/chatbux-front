@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Outlet, useNavigate, Link } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
+import io from 'socket.io-client'
 import chaticon from '../../assets/chat.png'
-import logout from '../../assets/logout.png'
 import logo from '../../assets/chatbux.png'
 import user from '../../assets/logo.png'
-import { deconnect, getAllChat, getMyInfo, getUsers, setToken } from '../../redux'
+import logout from '../../assets/logout.png'
+import { addChat, deconnect, getAllChat, getMyInfo, getUsers, setToken } from '../../redux'
 import './style.css'
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const WrapperApp = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const account = useSelector(state => state.account)
+    const account = useSelector(state => state.account);
+    const [io_socket, _] = useState(io(`${BACKEND_URL}/`));
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -20,7 +24,8 @@ const WrapperApp = () => {
             dispatch(getUsers(token));
             dispatch(getMyInfo(token));
             dispatch(getAllChat(token));
-
+            io_socket.emit('register', token);
+            io_socket.on('newmsg', (data) => dispatch(addChat(data)))
         } else navigate('/connect')
     }, [])
 
