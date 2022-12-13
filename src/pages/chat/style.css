@@ -4,7 +4,6 @@
 }
 
 .chat-page> :nth-child(1) {
-    /* background-color: rgba(231, 231, 246, 0.461); */
     backdrop-filter: blur(.4rem);
     overflow-x: scroll;
     color: rgb(42, 38, 34);
